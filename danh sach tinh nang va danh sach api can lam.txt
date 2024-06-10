@@ -1,0 +1,54 @@
+
+
+Danh sách api cho các chức năng
+1. View List Account(xem danh sách account)
+	+ Lấy danh sách account(có phân trang)
+	+ Lấy danh sách role
+	+ Lấy danh sách department
+2. Create Account (Admin sẽ tạo account)
+	+ Tạo mới account
+	+ Lấy danh sách role
+	+ Lấy danh sách department
+3. Update Account	
+	+ Cập nhật account
+	+ Lấy danh sách role
+	+ Lấy danh sách department
+4. Delete nhiều Account 1 lúc
+	+ Xóa danh sách account theo danh sách id(mảng id)
+	
+	
+5. View List Department
+	+ lấy danh sách department
+	+ lấy danh sách type(trong bảng department)
+6. Create Department & Add account to Department
+	+ thêm mới department
+	+ lấy danh sách type(trong bảng department)
+	+ lấy danh sách account
+7. Update Department
+	+ cập nhật department
+	+ lấy danh sách type(trong bảng department)
+8. Delete Department
+	+ xóa danh sách department  theo danh sách id(mảng id)
+	
+
+Số API thực tế cần làm
+1. Account:
+	+ Lấy danh sách account(có phân trang) -> trả về Page<AccountDTO)
+	+ lấy danh sách account	-> trả về List<Account>
+	+ Lấy danh sách role(từ bảng account)
+	+ Tạo mới account
+	+ Cập nhật account
+	+ Xóa danh sách account theo danh sách id(mảng id)
+2. Department:
+	+ lấy danh sách department(có phân trang) -> trả về Page<DepartmentDTO)
+	+ + Lấy danh sách department -> List<DepartmentDTO>
+	+ lấy danh sách type(trong bảng department)
+	+ thêm mới department
+	+ cập nhật department
+	+ xóa danh sách department theo danh sách id(mảng id)
+
+Giang: 9/12
+Tú: 6/12
+Dương: 7/12
+Thái Ngọc: 6/12
+Hải: 10/12

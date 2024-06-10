@@ -1,0 +1,220 @@
+<div class="container-lg">
+
+
+    <div>Đây là trang quản lý phòng ban</div>
+    <div class="alert alert-success alert-dismissible" id="alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Thành công!</strong>.
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade show" id="alert-warning">
+        <a type="button" class="btn-close" data-bs-dismiss="alert"></a>
+        <strong>Lỗi</strong>
+      </div>
+
+    <div class="table-responsive">
+        <br>
+
+        <span>
+            <label for="min-date">Min Date:</label>
+            <input type="date" id="min-date" name="min-date">
+        </span>
+        <span>
+            <label for="max-date">Max Date:</label>
+            <input type="date" id="max-date" name="max-date">
+        </span>
+        <span>
+            <label for="department-type-filter"><b>Type</b></label>
+            <select class="form-select" aria-label="Default select example" id="department-type-filter">
+            </select>
+        </span>
+
+        <span>
+
+            <button id="filter" onclick="initDepartmentTableWithFilter()">
+
+                <i class="fa-solid fa-filter"></i>
+            </button>
+        </span>
+        <span>
+    
+            <div id="search-department-by-name">
+                <label for="search-by-name">Search by Name:</label>
+                <input type="text" id="search-by-name" name="search-by-name" placeholder="Nhập vào tên Department">
+            </div>
+
+            <div>
+                <div id="pagination-department" class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#">1</a>
+                    <a href="#" class="active">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">&raquo;</a>
+                </div>
+            </div>
+        </span>
+        
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h2>Danh sách <b>Phòng ban</b></h2>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <div id="function-buttons" style="text-align: right;">
+                            <button id="bt-1" style="height: 50px;" type="button" title="Refresh" class="btn btn-outline-dark table-btn" onclick="refreshDepartmentTable()"><i class="fa fa-arrows-rotate"></i></button>
+                            <button id="bt-2" type="button" title="Add New" class="btn btn-success table-btn" onclick="openAddNewDepartmentModal()"><i class="fa fa-plus"></i></button>
+                            <button id="bt-3" type="button" title="Delete" class="btn btn-danger table-btn" onclick="openDeleteDepartmentsModal()"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Total Member</th>
+                        <th>Type</th>
+                        <th>Created Date</th>
+                        <th>Acction</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- modal thêm mới department -->
+<div id="add-new-department" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="add-new-department-title" class="modal-title">Tạo phòng ban mới</h5>
+                <button type="button" class="close" aria-label="Close" onclick="hideAddNewModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="department-id" name="department-id">
+
+                <label for="department-name"><b>Tên Phòng ban</b></label>
+                <input type="text" placeholder="Nhập tên Phòng ban" name="department-name" id="department-name"
+                    required>
+
+                <label for="department-type-select"><b>Type</b></label>
+                <br>
+                <select class="form-select" id="department-type-select">
+                    <option id="department-type-select-default" value="" disabled selected>Select type</option>
+
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <div id="add-account-button">
+                    <button type="button" class="btn btn-primary" onclick="showAddAccountToDepartmentModal()">Add
+                        Account</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="saveDepartment()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="hideAddNewModal()">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--  modal chọn account để thêm vào department -->
+<div id="add-account-to-department" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="add-account-to-department-title" class="modal-title">Add account into Department</h5>
+                <button type="button" class="close" aria-label="Close" onclick="hideAddAccountToDepartmentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; max-height: 500px;">
+                <table id="account-list-table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveDepartment()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="hideAddAccountToDepartmentModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal xóa department -->
+<div id="delete-department-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="delete-department-title" class="modal-title">Xóa phòng ban</h5>
+                <button type="button" class="close" aria-label="Close" onclick="hideDeleteDepartmentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="delete-department-title" class="modal-body">
+                <div>Bạn có muốn xóa phòng ban này không</div>
+            </div>
+            <div class="modal-footer">
+                
+                <input type="text" id="delete-department-id" style="display: none;" value="test">
+                <button id="delete-department-button" type="button" class="btn btn-primary" onclick="deleteDepartment()">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="hideDeleteDepartmentModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal xóa nhiều department -->
+<div id="delete-departments-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="delete-department-title" class="modal-title">Xóa phòng ban</h5>
+                <button type="button" class="close" aria-label="Close" onclick="hideDeleteDepartmentsModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="delete-department-title" class="modal-body">
+                <div>Bạn có muốn xóa những phòng ban này không</div>
+            </div>
+            <div class="modal-footer">
+                
+                <input type="text" id="delete-department-id" style="display: none;" value="test">
+                <button id="delete-department-button" type="button" class="btn btn-primary" onclick="deleteDepartments()">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="hideDeleteDepartmentsModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
